@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Lounge</h2>
-    <div v-for="(mesa, index) in mesas" :key="index">holano {{ mesa.id}} {{mesa.left}}</div>hola
+    medidas salon {{ salonWidth}}, {{salonHeight}}
     <div class="loung_1" @mousemove="mouseMove" @mouseup="stopDrag($event)">
       <mesa-component
         v-for="(mesa, index) in mesas"
@@ -10,13 +10,6 @@
         @mouseDown="mouseDown"
         :id="mesa.id"
       ></mesa-component>
-
-      <!-- <mesa-component
-        :v-for="mesa in mesas"
-        :key="mesa.id"
-        @mouseDown="mouseDown"
-        :style="{left: mesa.left, top: mesa.top}"
-      />-->
     </div>
   </div>
 </template>
@@ -34,6 +27,8 @@ export default {
       draggableIndex: null,
       dragLeft: null,
       dragTop: null,
+      salonWidth: null,
+      salonHeight: null,
       mesas: [
         {
           id: 0,
@@ -74,12 +69,17 @@ export default {
   methods: {
     mouseMove(e) {
       if (this.isDrag) {
-        let pos_x = e.x - 25;
-        let pos_y = e.y - 250;
+        let pos_x = e.x - 50;
+        let pos_y = e.y - 180;
         // mesa_1.style.background = "#ff0000";
         this.dragLeft = pos_x + "px";
         this.dragTop = pos_y + "px";
-        if (pos_x <= 0 || pos_y <= 0) {
+        if (
+          pos_x <= 0 ||
+          pos_y <= 0 ||
+          pos_x >= this.salonWidth - 69 ||
+          pos_y >= this.salonHeight - 60
+        ) {
           console.log("menor");
         } else {
           this.mesas[this.draggableIndex].left = pos_x + "px";
@@ -89,11 +89,24 @@ export default {
     },
     mouseDown(id, event) {
       this.isDrag = true;
-      console.log("id", id, event);
+      console.log("Event-", event.target.parentElement.nodeName);
       this.draggableIndex = id;
+      const element = event.target.parentElement;
+      console.log(element);
+      const clases = event.target.parentElement.classList;
+      console.log(clases[0]);
+      if (clases[0] === "mesa") {
+        console.log("añade class dragg");
+        element.classList = `${clases} dragg`;
+      }
     },
-    stopDrag() {
+    stopDrag(event) {
       this.isDrag = false;
+      const clases = event.target.parentElement.classList;
+      console.log("clases", clases);
+      if (clases[0] === "mesa dragg") {
+        event.target.parentElement.classList = `mesa`;
+      }
     }
   },
 
@@ -102,6 +115,9 @@ export default {
   beforeMount() {},
   mounted() {
     document.addEventListener("contextmenu", event => event.preventDefault());
+    this.salonWidth = document.querySelector(".loung_1").clientWidth;
+    this.salonHeight = document.querySelector(".loung_1").clientHeight;
+    console.log(innerWidth);
   },
   beforeUpdate() {},
   updated() {},
@@ -120,7 +136,7 @@ export default {
 <style>
 .loung_1 {
   width: 100%;
-  height: 500px;
+  height: 600px;
   border: 1px solid #000;
   position: relative;
   overflow: hidden;

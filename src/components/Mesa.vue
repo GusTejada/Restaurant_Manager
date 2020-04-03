@@ -49,8 +49,9 @@ export default {
       console.log("ev:", evt);
       this.$emit("mouseDown", this.id, evt);
     },
-    mouseUp(event) {
-      console.log("ev up:", event);
+    mouseUp(evt) {
+      console.log("ev up:", evt);
+      this.$emit("mouseDown", this.id, evt);
     },
     doDrag() {
       console.log("ev drag", event);
@@ -84,10 +85,11 @@ export default {
   justify-content: center;
   align-items: center;
   user-select: none;
+  z-index: 0;
 }
 .submenu {
-  top: 50px !important;
-  left: 50px !important;
+  top: 35px !important;
+  left: 35px !important;
 }
 .tipoMesa {
   width: 50px;
@@ -102,5 +104,12 @@ export default {
   border: 1px solid #cecece;
   border-radius: 2px;
   margin: 3px;
+}
+.dragg {
+  cursor: move;
+  z-index: 1;
+}
+.dragg div {
+  background: chartreuse;
 }
 </style>
