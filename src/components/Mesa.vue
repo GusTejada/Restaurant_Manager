@@ -46,11 +46,12 @@ export default {
 
   methods: {
     mouseDown(evt) {
-      console.log("ev:", evt);
+      //console.log("ev:", evt);
+      //console.log("ev:", evt);
       this.$emit("mouseDown", this.id, evt);
     },
     mouseUp(evt) {
-      console.log("ev up:", evt);
+      //console.log("ev up:", evt);
       this.$emit("mouseDown", this.id, evt);
     },
     doDrag() {
