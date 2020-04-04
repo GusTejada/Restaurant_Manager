@@ -46,7 +46,7 @@ export default {
 
   methods: {
     mouseDown(evt) {
-      //console.log("nuevo componente", evt);
+      //console.log("nuevo componente" asdasdasds, evt);
       this.$emit("mouseDown", this.id, evt);
     },
     mouseUp(evt) {
