@@ -3,7 +3,7 @@
     <div class="silla"></div>
     <div class="tipoMesa">MESA {{id}}</div>
     <div class="silla"></div>
-    <Menu :model="items" :popup="true" ref="menu" class="submenu" />
+    <Menu :model="items" :popup="true" ref="menu" class="submenu" />hol
   </div>
 </template>
 
