@@ -49,6 +49,7 @@ export default {
       //console.log("ev:", evt);
       //console.log("ev:", evt);
       //console.log("ev:", evt);
+      //console.log("ev:", evt);
       this.$emit("mouseDown", this.id, evt);
     },
     mouseUp(evt) {
